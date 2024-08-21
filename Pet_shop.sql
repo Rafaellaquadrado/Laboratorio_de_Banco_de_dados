@@ -1,0 +1,51 @@
+CREATE DATABASE pet_shop;
+USE pet_shop;
+CREATE TABLE cliente (
+nome VARCHAR(100),
+telefone CHAR(11), 
+cpf CHAR(11) NOT NULL, 
+endereço VARCHAR(100),
+email VARCHAR(100),
+profissao VARCHAR(50)
+);
+CREATE TABLE pet  (
+raça CHAR(50),
+peso FLOAT(2),
+porte ENUM('baixo', 'alto', 'medio'),
+nome VARCHAR(50),
+idade INT(2),
+id_pet INT NOT NULL,
+id_cliente CHAR(11) NOT NULL,
+tipo_de_animal VARCHAR(50),
+pelagem VARCHAR(50),
+doencas_cronicas varchar(100),
+PRIMARY KEY (id_pet),
+FOREIGN KEY (id_cliente) REFERENCES cliente(cpf)
+);
+CREATE TABLE microship (
+id_microship INT(5) NOT NULL,
+id_pet INT NOT NULL,
+localizacao VARCHAR(50),
+nome_dono VARCHAR(50),
+nome_pet VARCHAR(50),
+endereco VARCHAR(50),
+especie VARCHAR(50),
+PRIMARY KEY (id_microship),
+FOREIGN KEY (id_pet) REFERENCES pet (id_pet)
+);
+CREATE TABLE veterinario (
+id_veterinario INT(5) NOT NULL,
+especialidade VARCHAR(50),
+email VARCHAR(50),
+telefone CHAR(11),
+data_nascimento DATE,
+PRIMARY KEY (id_veterinario)
+);
+CREATE TABLE atendimentos (
+id_atendimentos INT NOT NULL,
+id_veterinario INT NOT NULL,
+id_pet INT NOT NULL,
+PRIMARY KEY (id_atendimentos),
+FOREIGN KEY (id_veterinario) REFERENCES veterinario(id_veterinario),
+FOREIGN KEY (id_pet) REFERENCES pet(id_pet)
+);
